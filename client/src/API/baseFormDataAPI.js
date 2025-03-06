@@ -4,7 +4,7 @@ import axios from "axios";
 const baseFormDataApi =(token)=>{
 
     const apiClient = axios.create({
-        baseURL:"https://career-one-dun.vercel.app",//"http://localhost:5000",
+        baseURL:"",// "http://localhost:5000",
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`,

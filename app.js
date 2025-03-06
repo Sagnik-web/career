@@ -19,7 +19,9 @@ app.use('/auth',userRouter)
 app.use('/job',jobRouter)
 app.use('/application',applicationRouter)
 
-
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  });
 
 
 module.exports = app

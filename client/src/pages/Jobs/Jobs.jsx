@@ -15,14 +15,14 @@ function Jobs() {
     const cookieStorage = new CookieStorage()
     const token = cookieStorage.getItem('token')
 
-    const jobSelector = useSelector(state=>state.jobs.jobs)
-    const currentPageSelector = useSelector(state=>state.jobs.currentPage)
-    const totalJobsSelector = useSelector(state=>state.jobs.totalJobs)
-    const totalPagesSelector = useSelector(state=>state.jobs.totalPages)
+    const jobSelector = useSelector(state=>state.jobs?.jobs)
+    const currentPageSelector = useSelector(state=>state.jobs?.currentPage)
+    const totalJobsSelector = useSelector(state=>state.jobs?.totalJobs)
+    const totalPagesSelector = useSelector(state=>state.jobs?.totalPages)
    
-    const userAppliedSelector = useSelector(state=>state.user.user.applied)
-    const userRoleSelector = useSelector(state=>state.user.user.role)
-    const userStatusSelector = useSelector(state=>state.user.status)
+    const userAppliedSelector = useSelector(state=>state.user.user?.applied)
+    const userRoleSelector = useSelector(state=>state.user.user?.role)
+    const userStatusSelector = useSelector(state=>state.user?.status)
     // // console.log(userSelector);
     // console.log(jobSelector);
     useEffect(()=>{
@@ -65,7 +65,7 @@ function Jobs() {
   return (
     <div>
         <h2></h2>
-        {jobSelector.map(el=>
+        {jobSelector?.map(el=>
             <JobCard userRoleSelector={userRoleSelector} userAppliedSelector={userAppliedSelector} data={el} key={el._id} apply={()=>apply(el._id)}/>
         )}
 

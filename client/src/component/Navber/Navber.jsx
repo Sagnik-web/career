@@ -11,8 +11,8 @@ function Navber() {
 
   const [isVisible,setIsVisble] = useState(false)
   const [isLoggedin,setIsLoggedin] = useState(false)
-  const selector = useSelector(state=> state.user.status)
-  const userRole = useSelector(state=> state.user.user.role)
+  const selector = useSelector(state=> state.user?.status)
+  const userRole = useSelector(state=> state.user.user?.role)
   const dispatch = useDispatch()
 
   // console.log(userRole);

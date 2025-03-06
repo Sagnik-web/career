@@ -13,6 +13,7 @@ import Applied from './pages/Applied/Applied'
 import Jobs from './pages/Jobs/Jobs'
 import ApplicationForm from './pages/ApplicationForm/ApplicationForm'
 import {ToastContainer} from 'react-toastify'
+import NotFound from './pages/NotFound/NotFound'
 
 function App() {
   return (
@@ -52,6 +53,9 @@ function App() {
           </Route>
           <Route path="/hr/users">
               <Users/>
+          </Route>
+          <Route path="**">
+              <NotFound/>
           </Route>
           
         </Switch>
