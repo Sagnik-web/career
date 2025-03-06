@@ -19,3 +19,8 @@ export const getAllUsersAPI = async(token,val)=>{
     const res = await getAPI(token,"/auth/register",val)
     return res
 }
+
+export const getUserAPI = async(token)=>{
+    const res = await getAPI(token,"/auth")
+    return res
+}

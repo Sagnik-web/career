@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { CookieStorage } from 'cookie-storage';
 import { postJobsAPI } from '../../../API/Job/jobAPI';
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 
 
 function JobPost() {
@@ -9,6 +10,7 @@ function JobPost() {
 const [title, setTitle] = useState('');
 const [description, setDescription] = useState('');
 const cookieStorage = new CookieStorage()
+const history = useHistory()
 
 // Handle form submission
 const handleSubmit =async (e) => {
@@ -20,12 +22,14 @@ const handleSubmit =async (e) => {
   const token =await cookieStorage.getItem('token')
 
   postJobsAPI(token,{title:title,description:description})
-  .then(res=>{
+  .then(async res=>{
     console.log(res.data);
-    toast.success("Job Posted Successfully")
+    await toast.success("Job Posted Successfully")
+    await history.push('/hr')
   })
   .catch(err=>{
     console.log(err);
+    toast.success("Job is not Posted Successfully")
   })
 
 };

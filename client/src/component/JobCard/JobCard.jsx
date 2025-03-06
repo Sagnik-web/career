@@ -1,6 +1,8 @@
 import React from 'react'
 
-function JobCard({data,apply}) {
+function JobCard({data,apply, userAppliedSelector, userRoleSelector}) {
+
+
   return (
     <div className="mt-5 max-w-sm mx-auto bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden" >
     <div className="p-4">
@@ -15,7 +17,7 @@ function JobCard({data,apply}) {
         {/* <p>HR: {data.hr}</p> */}
         <p>Created At: {new Date(data.createdAt).toLocaleString()}</p>
       </div>
-      <button className=' cursor-pointer bg-blue-800 text-white px-5 py-2 mt-5' onClick={apply}>Applied</button>
+      {(!userAppliedSelector?.includes(data._id) && userRoleSelector=='user')&& <button className=' cursor-pointer bg-blue-800 text-white px-5 py-2 mt-5' onClick={apply}>Applied</button>}
     </div>
   </div>
   )

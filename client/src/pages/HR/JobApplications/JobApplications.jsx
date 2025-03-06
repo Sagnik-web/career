@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getJobApplicationAPI } from '../../../API/Application/applicationAPI'
 import { CookieStorage } from 'cookie-storage';
 import { useParams } from 'react-router-dom'
 import ApplicationCardRow from '../../../component/ApplicationCardRow/ApplicationCardRow';
 import {useDispatch,useSelector} from "react-redux"
 import { getJobApplication, removeJobApplication } from '../../../Redux/Slice/jobApplication';
+import { toast } from 'react-toastify';
+import Pagination from '../../../component/Pagination/Pagination';
+
 
 function JobApplications() {
 
@@ -37,11 +40,31 @@ function JobApplications() {
     .then(res=>{
       console.log(res.data);
       removeJobApplication(ID)
+      toast.success("Application Deleted Successfully.")
+
     })
     .catch(err=>{
       console.log(err);
     })
   }
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    console.log(page);
+
+    getJobApplicationAPI(token,jobID,page)
+    .then(res=>{
+      console.log(res.data);
+      dispatch(getJobApplication(res.data))
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+
+  }
+
 
   return (
     <div>
@@ -64,6 +87,11 @@ function JobApplications() {
         </tbody>
         </table>
     </div>
+    <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPagesSelector} 
+        onPageChange={handlePageChange} 
+      />
     </div>
   )
 }

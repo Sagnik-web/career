@@ -12,6 +12,7 @@ import JobApplications from './pages/HR/JobApplications/JobApplications'
 import Applied from './pages/Applied/Applied'
 import Jobs from './pages/Jobs/Jobs'
 import ApplicationForm from './pages/ApplicationForm/ApplicationForm'
+import {ToastContainer} from 'react-toastify'
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
           </Route>
           
         </Switch>
+        <ToastContainer/>
       </BrowserRouter>
    </div>
   )

@@ -5,10 +5,12 @@ const userRouter = require('./Router/user.router')
 const jobRouter = require('./Router/job.router')
 const applicationRouter = require('./Router/application.router')
 const fileUpload = require('express-fileupload');
+const path = require('path')
 const app = express()
 dotenv.config()
 
-
+// Serve static files from the React app build directory
+app.use(express.static(path.join(__dirname, 'client/dist')));
 
 app.use(cors())
 app.use(express.json())

@@ -3,10 +3,13 @@ import {useParams} from 'react-router-dom'
 import { getSingleJobAPI } from '../../API/Job/jobAPI';
 import { postApplicationAPI } from '../../API/Application/applicationAPI';
 import { CookieStorage } from 'cookie-storage';
+import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 
 
 function ApplicationForm() {
     const cookieStorage = new CookieStorage()
+    const history = useHistory()
     const { applicationID } = useParams();
     const [job,setJob] = useState({})
     const [formData, setFormData] = useState({
@@ -48,9 +51,13 @@ function ApplicationForm() {
         postApplicationAPI(token,applicationID,formData)
         .then(res=>{
             console.log(res.data);
+            toast.success('Application Submitted Successfully')
+            history.push('/applied')
         })
         .catch(err=>{
             console.log(err);
+            toast.error('Application is not submitted')
+
         })
     
       };

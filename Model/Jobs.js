@@ -11,8 +11,8 @@ const jobSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        default:'not_active',
-        enum:['active','not_active']
+        default:'Not Active',
+        enum:['Active','Not Active']
     },
     hr:{
         type:mongoose.Types.ObjectId,

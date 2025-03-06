@@ -1,10 +1,12 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import { CookieStorage } from 'cookie-storage';
 import { deleteApplicationAPI, getAllApplicationAPI } from '../../../API/Application/applicationAPI';
 import ApplicationCardRow from '../../../component/ApplicationCardRow/ApplicationCardRow';
 import {useDispatch, useSelector} from 'react-redux'
 import { getAllApplication, removeAllApplication } from '../../../Redux/Slice/allApplication';
 import StatusUpdatePopup from '../../../component/StatusUpdate/StatusUpdate';
+import { toast } from 'react-toastify';
+import Pagination from '../../../component/Pagination/Pagination';
 
 
 function Applications() {
@@ -37,6 +39,8 @@ function Applications() {
     .then(res=>{
       console.log(res.data);
       dispatch(removeAllApplication(ID))
+      toast.success("Application Deleted Successfully.")
+      
     })
     .catch(err=>{
       console.log(err);
@@ -44,7 +48,21 @@ function Applications() {
   }
 
 
-  
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    console.log(page);
+
+    getAllApplicationAPI(token,page)
+    .then(res=>{
+      // console.log(res.data);
+      dispatch(getAllApplication(res.data))
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }  
 
 
   return (
@@ -68,6 +86,11 @@ function Applications() {
         </tbody>
         </table>
 
+        <Pagination
+        currentPage={currentPage} 
+        totalPages={totalPagesSelector} 
+        onPageChange={handlePageChange} 
+      />
         {/* <StatusUpdatePopup/> */}
     </div>
   )

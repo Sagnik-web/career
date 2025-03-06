@@ -24,9 +24,12 @@ function Login() {
       console.log(res.data);
       await cookieStorage.setItem('token',res.data.token)
       dispatch(getUser(res.data.user))
+      history.push('/')
     })
     .catch(err=>{
       console.log(err);
+      toast.error('Login Error.')
+
     })
   }
 

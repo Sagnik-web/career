@@ -7,8 +7,8 @@ export const postApplicationAPI = async(token,jobID,val)=>{
 }
 
 
-export const getAllApplicationAPI = async(token)=>{
-    const res = await getAPI(token,"/application/all")
+export const getAllApplicationAPI = async(token,page=1,limit=5)=>{
+    const res = await getAPI(token,`/application/all?page=${page}&limit=${limit}`)
     return res
 }
 
@@ -26,8 +26,8 @@ export const getCandidateApplicationAPI = async(token)=>{
 
 
 
-export const getJobApplicationAPI = async(token,jobID)=>{
-    const res = await getAPI(token,`/application/job/${jobID}`)
+export const getJobApplicationAPI = async(token,jobID,page=1,limit=5)=>{
+    const res = await getAPI(token,`/application/job/${jobID}?page=${page}&limit=${limit}`)
     return res
 }
 

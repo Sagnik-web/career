@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-
+import { toast } from 'react-toastify';
 import { CookieStorage } from 'cookie-storage';
 
-import { getAllJobsAPI } from '../../../API/Job/jobAPI';
+import { deleteJobAPI, getAllJobsAPI } from '../../../API/Job/jobAPI';
 import JobCard from '../../../component/JobCard/JobCard';
-import { getJobs } from '../../../Redux/Slice/jobsSlice';
+import { getJobs, removeJob } from '../../../Redux/Slice/jobsSlice';
 import JobCardHR from '../../../component/JobCardHR/JobCardHR';
+import Pagination from '../../../component/Pagination/Pagination';
 
 
 function AllJobs() {
@@ -21,7 +22,7 @@ function AllJobs() {
   console.log(jobSelector);
   useEffect(()=>{
 
-      getAllJobsAPI("")
+      getAllJobsAPI(token)
       .then(res=>{
           console.log(res.data);
           dispatch(getJobs(res.data))
@@ -30,6 +31,40 @@ function AllJobs() {
           console.log(err);
       })
   },[token])
+
+  const onDelete =(ID)=>{
+    console.log(ID);
+    deleteJobAPI(token,ID)
+    .then(res=>{
+      console.log(res.data);
+      toast.success("Job Post Deleted Successfully.")
+      dispatch(removeJob(ID))
+    })
+    .catch(err=>{
+      console.log(err);
+      toast.error("Job is not Deleted Yet.")
+
+    })
+    
+  }
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    console.log(page);
+
+    getAllJobsAPI(token,page)
+    .then(res=>{
+        console.log(res.data);
+        dispatch(getJobs(res.data))
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+
+  }
+
 
 return (
   <div className=' max-w-[1200px] m-auto mt-7'>
@@ -40,16 +75,23 @@ return (
             <th className="px-4 py-2 font-semibold text-sm text-gray-700">Title</th>
             <th className="px-4 py-2 font-semibold text-sm text-gray-700">Description</th>
             <th className="px-4 py-2 font-semibold text-sm text-gray-700">Created At</th>
+            <th className="px-4 py-2 font-semibold text-sm text-gray-700">Status</th>
             <th className="px-4 py-2 font-semibold text-sm text-gray-700">Actions</th>
           </tr>
         </thead>
         <tbody>
       {jobSelector.map(el=>
-          <JobCardHR data={el} key={el._id}/>
+          <JobCardHR onDelete={onDelete}  data={el} key={el._id}/>
 
       )}
       </tbody>
       </table>
+
+    <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPagesSelector} 
+        onPageChange={handlePageChange} 
+      />
   </div>
 )
 }

@@ -1,5 +1,7 @@
 const Application = require("../Model/Application");
-
+const User = require("../Model/User");
+const { uploadCVtoS3 } = require("../utils/s3ImgUpload");
+const { v4 } = require('uuid');
 
 
 exports.createApplication = async (req, res) => {
@@ -7,9 +9,16 @@ exports.createApplication = async (req, res) => {
         const desc = req.body.desc;
         const jobID = req.params.jobID
         // console.log(jobID);
-        // console.log(req.files.file);
+        const cv = req.files.file;
+        let cv_url =''
+        if (cv) {
+            const imageFileName = `${v4()}_${cv.name}`;
+            // console.log(imageFileName);
+            // console.log(cv.data);
+            cv_url =await uploadCVtoS3(cv.data, `${imageFileName}`);
+        }
         const application = new Application({
-            resume_url:"",
+            resume_url:cv_url,
             candidate:req.user._id,
             job:jobID,
             desc:desc,
@@ -17,6 +26,9 @@ exports.createApplication = async (req, res) => {
         });
 
         await application.save();
+
+        const updateUser = await User.findByIdAndUpdate(req.user._id,{ $push: { applied:jobID } },{new:true})
+
         res.status(201).json({ 
             msg: 'Application created successfully', 
             application 

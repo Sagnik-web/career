@@ -36,6 +36,41 @@ exports.createJob = async(req,res)=>{
 
 
 
+exports.getAllActiiveJobs = async(req,res)=>{
+    const page = parseInt(req.query.page) || 1; // Default to page 1 if not specified
+    const limit = parseInt(req.query.limit) || 5; // Default to limit of 5 items per page
+    const skip = (page - 1) * limit;
+
+
+
+    try {
+        const jobs = await Jobs.find({status:"Active"}).skip(skip).limit(limit);
+        const totalJobs = (await Jobs.find({status:"Active"})).length;
+        const totalPages = Math.ceil(totalJobs / limit);
+
+        if(!jobs){
+            return res.status(400).json({
+                success:false,
+                msg:"No Jobs Found."
+            });
+        }
+
+
+        res.status(200).json({
+            success:true,
+            currentPage: page,
+            totalPages,
+            totalJobs,
+            jobs
+        });
+
+
+    }catch(err){
+        return res.status(500).json({ msg: `Error: ${err}` });
+    }
+}
+
+
 exports.getAllJobs = async(req,res)=>{
     const page = parseInt(req.query.page) || 1; // Default to page 1 if not specified
     const limit = parseInt(req.query.limit) || 5; // Default to limit of 5 items per page
@@ -69,6 +104,7 @@ exports.getAllJobs = async(req,res)=>{
         return res.status(500).json({ msg: `Error: ${err}` });
     }
 }
+
 
 // Get single job by ID
 exports.getJob = async (req, res) => {

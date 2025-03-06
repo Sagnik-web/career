@@ -14,7 +14,13 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:'user',
         enum:['user','hr']
-    }
+    },
+    applied:[
+        {
+            type:mongoose.Types.ObjectId,
+            ref:'jobs'
+        }
+    ]
 },{timestamps:true})
 
 

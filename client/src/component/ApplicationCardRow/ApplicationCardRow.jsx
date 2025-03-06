@@ -4,8 +4,8 @@ import StatusUpdatePopup from '../StatusUpdate/StatusUpdate'
 function ApplicationCardRow({row, deleteApplication, editStatus}) {
   return (
     <tr  className="hover:bg-gray-50 ">
-    <td className="p-5 border-b">{row.candidate.email}</td>
-    <td className="p-5 border-b">{row.job.title}</td>
+    <td className="p-5 border-b">{row.candidate?.email}</td>
+    <td className="p-5 border-b">{row.job?.title}</td>
     <td className="p-5 border-b">{ new Date(row.createdAt).toLocaleString()    }</td>
     <td className="p-5 border-b">{row.status}</td>
     <td className="p-5 border-b">

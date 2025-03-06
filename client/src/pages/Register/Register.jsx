@@ -9,6 +9,7 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const history = useHistory()
 
   const handleSignup = () => {
     //   e.preventDefault();
@@ -29,9 +30,12 @@ function Register() {
       .then(res=>{
         console.log(res.data);
         toast.success("Register Successfully.")
+        history.push('/login')
       })
       .catch(err=>{
         console.log(err);
+        toast.error("Register Error.")
+
       })
       
     };

@@ -19,6 +19,11 @@ const jobsSlice = createSlice({
             state.totalPages = actions.payload.totalPages
             state.status = 'success'
         },
+        statusUpdateJob:(state, action)=>{
+            console.log(action.payload);
+            state.jobs = state.jobs.map(el=> el._id == action.payload.job._id ? {...el, status:action.payload.job.status} :{...el}
+            )
+        },
         removeJob: (state, action) => {
             state.jobs = state.jobs.filter(el => el._id !== action.payload);
           }
@@ -26,7 +31,7 @@ const jobsSlice = createSlice({
 })
 
 
-export const {getJobs,removeJob} = jobsSlice.actions
+export const {getJobs,removeJob, statusUpdateJob} = jobsSlice.actions
 
 export default jobsSlice.reducer
 
