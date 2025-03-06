@@ -9,8 +9,6 @@ const path = require('path')
 const app = express()
 dotenv.config()
 
-// Serve static files from the React app build directory
-app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use(cors())
 app.use(express.json())
@@ -18,6 +16,10 @@ app.use(fileUpload())
 app.use('/auth',userRouter)
 app.use('/job',jobRouter)
 app.use('/application',applicationRouter)
+
+// Serve static files from the React app build directory
+
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
