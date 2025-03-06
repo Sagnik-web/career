@@ -23,7 +23,7 @@ function Applications() {
 
 
   useEffect(()=>{
-    getAllApplicationAPI(token)
+    getAllApplicationAPI(token,1,5)
     .then(res=>{
       //// console.log(res.data);
       dispatch(getAllApplication(res.data))

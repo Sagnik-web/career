@@ -25,7 +25,7 @@ function JobApplications() {
 
 
   useEffect(()=>{
-    getJobApplicationAPI(token,jobID)
+    getJobApplicationAPI(token,jobID,1,5)
     .then(res=>{
      // console.log(res.data);
       dispatch(getJobApplication(res.data))

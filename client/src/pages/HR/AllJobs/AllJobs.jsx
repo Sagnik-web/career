@@ -22,7 +22,7 @@ function AllJobs() {
  // console.log(jobSelector);
   useEffect(()=>{
 
-      getAllJobsAPI(token)
+      getAllJobsAPI(token,1,5)
       .then(res=>{
          // console.log(res.data);
           dispatch(getJobs(res.data))
