@@ -10,7 +10,7 @@ const app = express()
 dotenv.config()
 
 // Serve static files from the React app build directory
-app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use(cors())
 app.use(express.json())
