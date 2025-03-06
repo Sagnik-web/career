@@ -1,8 +1,70 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { getJobApplicationAPI } from '../../../API/Application/applicationAPI'
+import { CookieStorage } from 'cookie-storage';
+import { useParams } from 'react-router-dom'
+import ApplicationCardRow from '../../../component/ApplicationCardRow/ApplicationCardRow';
+import {useDispatch,useSelector} from "react-redux"
+import { getJobApplication, removeJobApplication } from '../../../Redux/Slice/jobApplication';
 
 function JobApplications() {
+
+  const dispatch = useDispatch()
+  const cookieStorage = new CookieStorage()
+  const token = cookieStorage.getItem('token')
+  const {jobID} = useParams()
+
+
+  const applicationSelector = useSelector(state=>state.job_application.application)
+  const currentPageSelector = useSelector(state=>state.job_application.currentPage)
+  const totalApplicationSelector = useSelector(state=>state.job_application.totalApplication)
+  const totalPagesSelector = useSelector(state=>state.job_application.totalPages)
+  console.log(applicationSelector,currentPageSelector,totalApplicationSelector,totalPagesSelector);
+
+
+  useEffect(()=>{
+    getJobApplicationAPI(token,jobID)
+    .then(res=>{
+      console.log(res.data);
+      dispatch(getJobApplication(res.data))
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  },[])
+
+   const deleteApplication=(ID)=>{
+    deleteApplicationAPI(token,ID)
+    .then(res=>{
+      console.log(res.data);
+      removeJobApplication(ID)
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }
+
   return (
-    <div>JobApplications</div>
+    <div>
+      <div>
+       <table className="min-w-full bg-white border border-gray-300">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="py-2 px-4 border-b text-left">Email</th>
+            <th className="py-2 px-4 border-b text-left">Job Title</th>
+            <th className="py-2 px-4 border-b text-left">Time</th>
+            <th className="py-2 px-4 border-b text-left">Resume</th>
+            <th className="py-2 px-4 border-b text-left">Status</th>
+            <th className="py-2 px-4 border-b text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {applicationSelector.map(el=>
+            <ApplicationCardRow row={el} deleteApplication={()=>deleteApplication(el._id)} editStatus={()=>editStatus(el.id)} key={el._id}/>
+          )}
+        </tbody>
+        </table>
+    </div>
+    </div>
   )
 }
 

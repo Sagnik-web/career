@@ -10,6 +10,8 @@ import ApplicationDetail from './pages/HR/ApplicationDetail/ApplicationDetail'
 import AllJobs from './pages/HR/AllJobs/AllJobs'
 import JobApplications from './pages/HR/JobApplications/JobApplications'
 import Applied from './pages/Applied/Applied'
+import Jobs from './pages/Jobs/Jobs'
+import ApplicationForm from './pages/ApplicationForm/ApplicationForm'
 
 function App() {
   return (
@@ -18,7 +20,7 @@ function App() {
       <Navber/>
         <Switch>
           <Route path="/" exact>
-            <h2>Home</h2>
+            <Jobs/>
           </Route>
           <Route path="/login" >
             <Login/>
@@ -29,10 +31,13 @@ function App() {
           <Route path="/applied">
             <Applied/>
           </Route>
+          <Route path="/application/:applicationID">
+            <ApplicationForm/>
+          </Route>
           <Route path="/hr" exact>
               <AllJobs/>
           </Route>
-          <Route path="/hr/job_application" exact>
+          <Route path="/hr/job_application/:jobID" exact>
               <JobApplications/>
           </Route>
           <Route path="/hr/job_post">

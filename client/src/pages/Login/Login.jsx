@@ -1,16 +1,33 @@
 import React,{useState} from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import { CookieStorage } from 'cookie-storage';
+import { loginAPI } from '../../API/Auth/authAPI';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux'
+import { getUser } from '../../Redux/Slice/userSlice';
+
 
 function Login() {
   const cookieStorage = new CookieStorage();
   const history = useHistory()
+  const dispatch = useDispatch()
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
     console.log(email, password);
+
+    loginAPI({email:email,password:password})
+    .then(async res=>{
+      toast.success('Login Successfully')
+      console.log(res.data);
+      await cookieStorage.setItem('token',res.data.token)
+      dispatch(getUser(res.data.user))
+    })
+    .catch(err=>{
+      console.log(err);
+    })
   }
 
   return (

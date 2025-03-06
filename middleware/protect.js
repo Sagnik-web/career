@@ -27,21 +27,16 @@ exports.protectAuth =async (req, res, next) => {
 
 
 
-// roleMiddleware.js
-exports.authorizeRole = async(requiredRole) =>{
-    return function (req, res, next) {
-      // Assuming user role is stored in req.user after authentication (e.g., JWT)
-      const userRole = req.user?.role;
+
+  exports.authorizeRole = (...allowedRoles) => {
+    return (req, res, next) => {
+      if (!req.user) return res.status(401).json({ message: 'Access Token Required' });
   
-      if (!userRole) {
-        return res.status(403).json({ msg: 'Access Denied: No Role Provided' });
+      const rolesArray = [...allowedRoles];
+      if (!rolesArray.includes(req.user.role)) {
+        return res.status(403).json({ message: 'Permission Denied' });
       }
   
-      if (userRole !== requiredRole) {
-        return res.status(403).json({ msg: `Access Denied: Required role is ${requiredRole}` });
-      }
-  
-      // If the user has the required role, proceed to the next middleware or route handler
       next();
     };
-  }
+  };

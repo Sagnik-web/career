@@ -4,12 +4,15 @@ const Application = require("../Model/Application");
 
 exports.createApplication = async (req, res) => {
     try {
-        const { resume_url, job } = req.body;
-
+        const desc = req.body.desc;
+        const jobID = req.params.jobID
+        // console.log(jobID);
+        // console.log(req.files.file);
         const application = new Application({
-            resume_url,
+            resume_url:"",
             candidate:req.user._id,
-            job,
+            job:jobID,
+            desc:desc,
             status: 'Applied'
         });
 
@@ -37,7 +40,7 @@ exports.getAllApplications = async (req, res) => {
 
 
     try {
-        const applications = await Application.find().skip(skip).limit(limit)
+        const applications = await Application.find().populate('job candidate').skip(skip).limit(limit)
         const totalApplications = await Application.countDocuments();
         const totalPages = Math.ceil(totalApplications / limit);
         
@@ -127,7 +130,7 @@ exports.getApplicationsByJob = async (req, res) => {
 
 
     try {
-        const applications = await Application.find({ job: jobId }).populate('candidate').skip(skip).limit(limit);
+        const applications = await Application.find({ job: jobId }).populate('candidate job').skip(skip).limit(limit);
         const totalApplications = (await Application.find({ job: jobId })).length;
         const totalPages = Math.ceil(totalApplications / limit);
 

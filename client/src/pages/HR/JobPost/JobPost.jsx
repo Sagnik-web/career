@@ -1,17 +1,33 @@
 import React, {useState} from 'react'
+import { CookieStorage } from 'cookie-storage';
+import { postJobsAPI } from '../../../API/Job/jobAPI';
+import { toast } from 'react-toastify';
 
 
 function JobPost() {
     // State to store form data
 const [title, setTitle] = useState('');
 const [description, setDescription] = useState('');
+const cookieStorage = new CookieStorage()
 
 // Handle form submission
-const handleSubmit = (e) => {
+const handleSubmit =async (e) => {
   e.preventDefault();
   // Here, you can process the form data (e.g., send it to a backend)
-  console.log('Job Title:', title);
-  console.log('Job Description:', description);
+  // console.log('Job Title:', title);
+  // console.log('Job Description:', description);
+
+  const token =await cookieStorage.getItem('token')
+
+  postJobsAPI(token,{title:title,description:description})
+  .then(res=>{
+    console.log(res.data);
+    toast.success("Job Posted Successfully")
+  })
+  .catch(err=>{
+    console.log(err);
+  })
+
 };
 
   return (

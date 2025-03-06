@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import { toast } from 'react-toastify';
+import { registerAPI } from '../../API/Auth/authAPI';
 
 function Register() {
 
@@ -24,7 +25,15 @@ function Register() {
         return;
       }
   
-    
+      registerAPI({email:email,password:password})
+      .then(res=>{
+        console.log(res.data);
+        toast.success("Register Successfully.")
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+      
     };
 
 

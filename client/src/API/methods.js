@@ -1,10 +1,15 @@
 import baseApi from "./baseAPI"
+import baseFormDataApi from "./baseFormDataAPI"
 
 export const postAPI =async(token,url,data)=>{
     const res =await baseApi(token).post(url,data)
     return res
 }
 
+export const formDataPostAPI =async(token,url,data)=>{
+    const res =await baseFormDataApi(token).post(url,data)
+    return res
+}
 
 export const getAPI =async(token,url)=>{
     const res =await baseApi(token).get(url)
