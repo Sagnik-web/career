@@ -16,18 +16,18 @@ function Login() {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    console.log(email, password);
+    // console.log(email, password);
 
     loginAPI({email:email,password:password})
     .then(async res=>{
       toast.success('Login Successfully')
-      console.log(res.data);
+      // console.log(res.data);
       await cookieStorage.setItem('token',res.data.token)
       dispatch(getUser(res.data.user))
       history.push('/')
     })
     .catch(err=>{
-      console.log(err);
+      // console.log(err);
       toast.error('Login Error.')
 
     })

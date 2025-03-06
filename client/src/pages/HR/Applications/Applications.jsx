@@ -19,17 +19,17 @@ function Applications() {
   const currentPageSelector = useSelector(state=>state.all_application.currentPage)
   const totalApplicationSelector = useSelector(state=>state.all_application.totalApplication)
   const totalPagesSelector = useSelector(state=>state.all_application.totalPages)
-  console.log(applicationSelector,currentPageSelector,totalApplicationSelector,totalPagesSelector);
+ // console.log(applicationSelector,currentPageSelector,totalApplicationSelector,totalPagesSelector);
 
 
   useEffect(()=>{
     getAllApplicationAPI(token)
     .then(res=>{
-      // console.log(res.data);
+      //// console.log(res.data);
       dispatch(getAllApplication(res.data))
     })
     .catch(err=>{
-      console.log(err);
+     // console.log(err);
     })
   },[])
 
@@ -37,13 +37,13 @@ function Applications() {
   const deleteApplication=(ID)=>{
     deleteApplicationAPI(token,ID)
     .then(res=>{
-      console.log(res.data);
+     // console.log(res.data);
       dispatch(removeAllApplication(ID))
       toast.success("Application Deleted Successfully.")
       
     })
     .catch(err=>{
-      console.log(err);
+     // console.log(err);
     })
   }
 
@@ -52,15 +52,15 @@ function Applications() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(page);
+   // console.log(page);
 
     getAllApplicationAPI(token,page)
     .then(res=>{
-      // console.log(res.data);
+      //// console.log(res.data);
       dispatch(getAllApplication(res.data))
     })
     .catch(err=>{
-      console.log(err);
+     // console.log(err);
     })
   }  
 

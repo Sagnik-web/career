@@ -21,30 +21,30 @@ function JobApplications() {
   const currentPageSelector = useSelector(state=>state.job_application.currentPage)
   const totalApplicationSelector = useSelector(state=>state.job_application.totalApplication)
   const totalPagesSelector = useSelector(state=>state.job_application.totalPages)
-  console.log(applicationSelector,currentPageSelector,totalApplicationSelector,totalPagesSelector);
+ // console.log(applicationSelector,currentPageSelector,totalApplicationSelector,totalPagesSelector);
 
 
   useEffect(()=>{
     getJobApplicationAPI(token,jobID)
     .then(res=>{
-      console.log(res.data);
+     // console.log(res.data);
       dispatch(getJobApplication(res.data))
     })
     .catch(err=>{
-      console.log(err);
+     // console.log(err);
     })
   },[])
 
    const deleteApplication=(ID)=>{
     deleteApplicationAPI(token,ID)
     .then(res=>{
-      console.log(res.data);
+     // console.log(res.data);
       removeJobApplication(ID)
       toast.success("Application Deleted Successfully.")
 
     })
     .catch(err=>{
-      console.log(err);
+     // console.log(err);
     })
   }
 
@@ -52,15 +52,15 @@ function JobApplications() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(page);
+   // console.log(page);
 
     getJobApplicationAPI(token,jobID,page)
     .then(res=>{
-      console.log(res.data);
+     // console.log(res.data);
       dispatch(getJobApplication(res.data))
     })
     .catch(err=>{
-      console.log(err);
+     // console.log(err);
     })
 
   }

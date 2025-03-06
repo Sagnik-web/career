@@ -23,17 +23,17 @@ function Jobs() {
     const userAppliedSelector = useSelector(state=>state.user.user.applied)
     const userRoleSelector = useSelector(state=>state.user.user.role)
     const userStatusSelector = useSelector(state=>state.user.status)
-    // console.log(userSelector);
-    console.log(jobSelector);
+    // // console.log(userSelector);
+    // console.log(jobSelector);
     useEffect(()=>{
 
         getAllActiveJobsAPI("")
         .then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             dispatch(getJobs(res.data))
         })
         .catch(err=>{
-            console.log(err);
+            // console.log(err);
         })
     },[token])
 
@@ -51,14 +51,14 @@ function Jobs() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(page);
+    // console.log(page);
     getAllActiveJobsAPI("",page)
         .then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             dispatch(getJobs(res.data))
         })
         .catch(err=>{
-            console.log(err);
+            // console.log(err);
         })
   };
 

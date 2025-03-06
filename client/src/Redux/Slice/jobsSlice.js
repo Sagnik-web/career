@@ -20,7 +20,7 @@ const jobsSlice = createSlice({
             state.status = 'success'
         },
         statusUpdateJob:(state, action)=>{
-            console.log(action.payload);
+            // console.log(action.payload);
             state.jobs = state.jobs.map(el=> el._id == action.payload.job._id ? {...el, status:action.payload.job.status} :{...el}
             )
         },

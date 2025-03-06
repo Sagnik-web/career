@@ -12,7 +12,7 @@ function Applied() {
   useEffect(()=>{
     getCandidateApplicationAPI(token)
     .then(res=>{
-      console.log(res.data);
+      // console.log(res.data);
       setApplications(res.data.applications)
     })
     .catch(err=>{

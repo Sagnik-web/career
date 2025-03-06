@@ -23,12 +23,12 @@ const handleSubmit =async (e) => {
 
   postJobsAPI(token,{title:title,description:description})
   .then(async res=>{
-    console.log(res.data);
+   // console.log(res.data);
     await toast.success("Job Posted Successfully")
     await history.push('/hr')
   })
   .catch(err=>{
-    console.log(err);
+    // console.log(err);
     toast.success("Job is not Posted Successfully")
   })
 

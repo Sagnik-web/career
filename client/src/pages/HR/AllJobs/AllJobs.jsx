@@ -19,29 +19,29 @@ function AllJobs() {
   const currentPageSelector = useSelector(state=>state.jobs.currentPage)
   const totalJobsSelector = useSelector(state=>state.jobs.totalJobs)
   const totalPagesSelector = useSelector(state=>state.jobs.totalPages)
-  console.log(jobSelector);
+ // console.log(jobSelector);
   useEffect(()=>{
 
       getAllJobsAPI(token)
       .then(res=>{
-          console.log(res.data);
+         // console.log(res.data);
           dispatch(getJobs(res.data))
       })
       .catch(err=>{
-          console.log(err);
+         // console.log(err);
       })
   },[token])
 
   const onDelete =(ID)=>{
-    console.log(ID);
+   // console.log(ID);
     deleteJobAPI(token,ID)
     .then(res=>{
-      console.log(res.data);
+     // console.log(res.data);
       toast.success("Job Post Deleted Successfully.")
       dispatch(removeJob(ID))
     })
     .catch(err=>{
-      console.log(err);
+     // console.log(err);
       toast.error("Job is not Deleted Yet.")
 
     })
@@ -52,15 +52,15 @@ function AllJobs() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(page);
+   // console.log(page);
 
     getAllJobsAPI(token,page)
     .then(res=>{
-        console.log(res.data);
+       // console.log(res.data);
         dispatch(getJobs(res.data))
     })
     .catch(err=>{
-        console.log(err);
+       // console.log(err);
     })
 
   }

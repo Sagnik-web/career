@@ -26,15 +26,15 @@ const JobStatusUpdate = ({id}) => {
     setIsDropdownOpen(false); // Close dropdown when status is selected
     // setIsPopupOpen(true); // Open the status update popup
 
-    console.log(newStatus);
+    // console.log(newStatus);
 
     patchJobsAPI(token,id,{status:newStatus})
     .then(res=>{
-      console.log(res.data);
+      // console.log(res.data);
       dispatch(statusUpdateJob(res.data))
     })
     .catch(err=>{
-      console.log(err);
+      // console.log(err);
     })
     
   };

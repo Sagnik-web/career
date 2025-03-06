@@ -28,12 +28,12 @@ function Register() {
   
       registerAPI({email:email,password:password})
       .then(res=>{
-        console.log(res.data);
+        // console.log(res.data);
         toast.success("Register Successfully.")
         history.push('/login')
       })
       .catch(err=>{
-        console.log(err);
+        // console.log(err);
         toast.error("Register Error.")
 
       })

@@ -25,7 +25,7 @@ const StatusUpdatePopup = ({id}) => {
     // setIsPopupOpen(true); // Open the status update popup
     updateApplicationAPI(token,id,{status:newStatus})
     .then(res=>{
-        console.log(res.data);
+        // console.log(res.data);
         dispatch(statusUpdateAllApplication(res.data))
         dispatch(statusUpdateJobApplication(res.data))
     })

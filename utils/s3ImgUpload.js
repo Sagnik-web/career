@@ -24,7 +24,7 @@ exports.uploadCVtoS3 = async (fileContent, fileName) => {
       const command = new PutObjectCommand(params);
       await s3.send(command);
       const url = `https://s3.us-east-1.amazonaws.com/sb.mytest/cv/${fileName}`;
-      console.log(url);
+      // console.log(url);
       
       return url; // This will be the public URL
     } catch (error) {

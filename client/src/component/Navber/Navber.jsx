@@ -15,11 +15,11 @@ function Navber() {
   const userRole = useSelector(state=> state.user.user.role)
   const dispatch = useDispatch()
 
-  console.log(userRole);
+  // console.log(userRole);
   const cookieStorage = new CookieStorage()
-  console.log(selector);
+  // console.log(selector);
   let token =cookieStorage.getItem('token')
-  console.log(token);
+  // console.log(token);
 
   const history = useHistory()
 
@@ -35,7 +35,7 @@ function Navber() {
     if(token){
     getUserAPI(token)
     .then(res=>{
-      console.log(res.data);
+      // console.log(res.data);
       dispatch(getUser(res.data.user))
     })
     .catch(err=>{

@@ -38,7 +38,7 @@ function ApplicationForm() {
       // Handle form submission
       const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log(applicationID);
+        // console.log(applicationID);
         const token = await cookieStorage.getItem('token')
         const formDataToSubmit = new FormData();
         formDataToSubmit.append("desc", formData.desc);
@@ -46,16 +46,16 @@ function ApplicationForm() {
         formDataToSubmit.append("file", formData.file);
     
         // You can now send the formDataToSubmit to a backend API
-        console.log("Form Data:", formDataToSubmit);
+        // console.log("Form Data:", formDataToSubmit);
 
         postApplicationAPI(token,applicationID,formData)
         .then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             toast.success('Application Submitted Successfully')
             history.push('/applied')
         })
         .catch(err=>{
-            console.log(err);
+            // console.log(err);
             toast.error('Application is not submitted')
 
         })
@@ -66,7 +66,7 @@ function ApplicationForm() {
       useEffect(()=>{
         getSingleJobAPI("",applicationID)
         .then(res=>{
-            console.log(res.data.job);
+            // console.log(res.data.job);
             setJob(res.data.job)
         })
         .catch(err=>{
