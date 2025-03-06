@@ -52,7 +52,7 @@ exports.getAllApplications = async (req, res) => {
 
 
     try {
-        const applications = await Application.find().populate('job candidate').skip(skip).limit(limit)
+        const applications = await Application.find().sort({createAt:-1}).populate('job candidate').skip(skip).limit(limit)
         const totalApplications = await Application.countDocuments();
         const totalPages = Math.ceil(totalApplications / limit);
         
@@ -112,7 +112,7 @@ exports.getApplicationsByCandidate = async (req, res) => {
 
 
     try {
-        const applications = await Application.find({ candidate: req.user._id }).populate('job').skip(skip).limit(limit);
+        const applications = await Application.find({ candidate: req.user._id }).sort({createAt:-1}).populate('job').skip(skip).limit(limit);
         const totalApplications = (await Application.find({ candidate: req.user._id })).length;
         const totalPages = Math.ceil(totalApplications / limit);
 
@@ -142,7 +142,7 @@ exports.getApplicationsByJob = async (req, res) => {
 
 
     try {
-        const applications = await Application.find({ job: jobId }).populate('candidate job').skip(skip).limit(limit);
+        const applications = await Application.find({ job: jobId }).sort({createAt:-1}).populate('candidate job').skip(skip).limit(limit);
         const totalApplications = (await Application.find({ job: jobId })).length;
         const totalPages = Math.ceil(totalApplications / limit);
 
