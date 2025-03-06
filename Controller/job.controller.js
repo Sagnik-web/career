@@ -44,7 +44,7 @@ exports.getAllActiiveJobs = async(req,res)=>{
 
 
     try {
-        const jobs = await Jobs.find({status:"Active"}).sort({createAt:-1}).skip(skip).limit(limit);
+        const jobs = await Jobs.find({status:"Active"}).skip(skip).limit(limit);
         const totalJobs = (await Jobs.find({status:"Active"})).length;
         const totalPages = Math.ceil(totalJobs / limit);
 
@@ -79,7 +79,7 @@ exports.getAllJobs = async(req,res)=>{
 
 
     try {
-        const jobs = await Jobs.find().sort({createAt:-1}).skip(skip).limit(limit);
+        const jobs = await Jobs.find().skip(skip).limit(limit);
         const totalJobs = await Jobs.countDocuments();
         const totalPages = Math.ceil(totalJobs / limit);
 
